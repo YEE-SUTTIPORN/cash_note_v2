@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cashnote-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    acme.cert-manager.io/http01-ingress-class: nginx
+  labels:
+    app: frontend
+spec:
+  tls:
+    - hosts:
+        - cashnote.sutthiporn.dev
+      secretName: cashnote-tls
+  rules:
+    - host: cashnote.sutthiporn.dev
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cashnote-frontend
+                port:
+                  number: 80
