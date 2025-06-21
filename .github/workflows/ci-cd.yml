@@ -28,7 +28,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cashnote-frontend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cashnote-frontend:edit-nginx
 
       - name: 📦 Build and Push Backend
         uses: docker/build-push-action@v4

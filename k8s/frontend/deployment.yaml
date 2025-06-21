@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ayeesuttiporn/cashnote-frontend:latest
+          image: ayeesuttiporn/cashnote-frontend:edit-nginx
           ports:
             - containerPort: 80
