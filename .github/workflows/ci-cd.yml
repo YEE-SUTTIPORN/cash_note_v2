@@ -1,0 +1,45 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout source
+        uses: actions/checkout@v3
+
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: 🔐 Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: 📦 Build and Push Frontend
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cashnote-frontend:latest
+
+      - name: 📦 Build and Push Backend
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile.api
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cashnote-backend:latest
+
+      - name: 🚀 Deploy to Kubernetes via ArgoCD
+        run: |
+          curl -X POST \
+          -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+          https://your-argocd-domain/api/v1/applications/cashnote/refresh
