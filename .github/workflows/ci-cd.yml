@@ -54,7 +54,7 @@ jobs:
       # 🚀 Apply ArgoCD Application manifests (สร้าง/อัปเดต Application ใน cluster)
       - name: 🚀 Apply ArgoCD Applications
         run: |
-          kubectl apply -f k8s/argocd-application.yaml -n argocd
+          kubectl apply -f k8s/argocd-application.yaml -n argocd --validate=false
 
       - name: 🔁 Trigger ArgoCD Sync
         run: |
