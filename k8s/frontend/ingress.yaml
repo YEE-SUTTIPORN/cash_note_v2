@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: cashnote-ingress
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/cluster-issuer: letsencrypt-http
     acme.cert-manager.io/http01-ingress-class: nginx
   labels:
     app: frontend
