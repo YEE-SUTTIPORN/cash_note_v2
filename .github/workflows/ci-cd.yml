@@ -38,8 +38,10 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/cashnote-backend:latest
 
-      - name: 🚀 Deploy to Kubernetes via ArgoCD
+      - name: 🔁 Trigger ArgoCD Sync
         run: |
-          curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
-          https://argocd.sutthiporn.dev/api/v1/applications/cashnote/refresh
+          curl -X POST -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+            https://argocd.sutthiporn.dev/api/v1/applications/cashnote-frontend/refresh
+
+          curl -X POST -H "Authorization: Bearer ${{ secrets.ARGOCD_TOKEN }}" \
+            https://argocd.sutthiporn.dev/api/v1/applications/cashnote-backend/refresh
