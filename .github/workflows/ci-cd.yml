@@ -47,7 +47,13 @@ jobs:
 
       # 📄 Load KUBECONFIG จาก Secret
       - name: 🔐 Set KUBECONFIG from secret
-        run: echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+        run: echo "${{ secrets.KUBECONFIG }}" | base64 -d > kubeconfig.yaml
+
+      - name: 🧪 Test Connection to Cluster
+        env:
+          KUBECONFIG: ${{ github.workspace }}/kubeconfig.yaml
+        run: |
+          kubectl get ns
 
       # 🚀 Apply ArgoCD Application manifests (สร้าง/อัปเดต Application ใน cluster)
       - name: 🚀 Apply ArgoCD Applications
