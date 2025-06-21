@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: yourdockeruser/cashnote-backend:latest
+          image: ayeesuttiporn/cashnote-backend:latest
           ports:
             - containerPort: 80
 ---
@@ -34,6 +34,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: yourdockeruser/cashnote-frontend:latest
+          image: ayeesuttiporn/cashnote-frontend:latest
           ports:
             - containerPort: 80
