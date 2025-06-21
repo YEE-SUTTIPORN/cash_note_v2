@@ -36,7 +36,25 @@ jobs:
           context: .
           file: ./Dockerfile.api
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cashnote-backend:latest
+          tags:
+            ${{ secrets.DOCKERHUB_USERNAME }}/cashnote-backend:latest
+
+            # 📡 Setup kubectl
+      - name: 📡 Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: latest
+
+      # 📄 Load KUBECONFIG จาก Secret
+      - name: 🔐 Set KUBECONFIG from secret
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+          export KUBECONFIG=$PWD/kubeconfig.yaml
+
+      # 🚀 Apply ArgoCD Application manifests (สร้าง/อัปเดต Application ใน cluster)
+      - name: 🚀 Apply ArgoCD Applications
+        run: |
+          kubectl apply -f k8s/argocd-application.yaml -n argocd
 
       - name: 🔁 Trigger ArgoCD Sync
         run: |
