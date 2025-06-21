@@ -1,0 +1,40 @@
+# Backend App
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cashnote-backend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/YEE-SUTTIPORN/cash_note_v2.git
+    targetRevision: main
+    path: k8s/backend
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+# Frontend App
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cashnote-frontend
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/YEE-SUTTIPORN/cash_note_v2.git
+    targetRevision: main
+    path: k8s/frontend
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
