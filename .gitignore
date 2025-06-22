@@ -1,0 +1,64 @@
+# Build artifacts
+backend/bin/
+obj/
+out/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.userprefs
+*.pidb
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker-related
+**/publish/
+docker-compose.override.yml
+
+# ASP.NET Core secrets
+secrets.json
+*.pfx
+
+# .NET Core specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# Visual Studio 2019 - 2022
+.vs/
+*.dbmdl
+*.bak
+
+# EF Core migrations snapshots
+Migrations/*.Designer.cs
+Migrations/*Snapshot.cs
+
+# Test results
+TestResults/
+coverage/
+
+# dotnet CLI
+/.vs
+/.idea
+/.tmp/
+.env
